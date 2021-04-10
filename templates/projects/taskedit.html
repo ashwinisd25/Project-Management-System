@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+
+    <div style="text-align:center">
+        <div class="form-group">
+        <h2>Edit Your Task!</h2><hr>
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                <div class="col-sm-4">
+                    {{ field }}
+                    <br>
+                    <div class="invalid-feedback">
+                        {{ field.errors }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+        </form>
+</div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

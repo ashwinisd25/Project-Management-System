@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    
+    <div class="row mt-5" id="tablecontainer">
+        <div class="col-12 table-responsive">
+            <table class="table">
+                <tbody>
+                    <h4 class="text-center" >CLIENTS</h4><br>
+                    {% for client in clients %}                    
+                    <tr>
+                        <td class="text-left">
+                           <h5>{{ client.name }}</h5>    
+                        </td>
+                        <td class="text-left">
+                            <p>{{ client.email }}</p>    
+                         </td>
+                         <td class="text-left">
+                            <p>{{ client.phone }}</p>    
+                         </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+   
+</div>
+{% endblock%}

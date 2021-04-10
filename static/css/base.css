@@ -1,0 +1,20 @@
+.home {
+    background-image: url("https://deploybot.com/assets/blog/speedup_your_frontend.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 80px;
+}
+.container {
+    padding-top: 40px;
+
+}
+#tablecontainer {
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#client{
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row ">
+        <div class="col-xs-1 text-center">
+            <h4>Project Name : {{project.name}}</h4>
+            <h6>Project Description : {{project.description}}</h6>
+            <h4>Client Name : {{ project.client }}</h4>
+            <h4>Tasks : {{ project.task_count }}</h4>
+            <p>Created on : {{ project.start_date }}</p>
+            {%if project.end_date %}
+            <p>Completed on : {{ project.end_date }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mt-5" id="tablecontainer">
+        <br>
+        <a href="{% url 'tasklist' project.id %}"><h4 class="text-center" style="color:rgb(211, 46, 101)">View Tasks under this Project</h4></a>
+    </div>
+    <div class="container">
+        <div class="row ">
+            <div class="col-xs-1 text-center">
+                <a href="{% url 'createtask' project.id %}"><h2 class="text-center mt-4 mb-2">Add Task</h2></a>
+            </div>
+        </div>
+</div>
+{% endblock %}

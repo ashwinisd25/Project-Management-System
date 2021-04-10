@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h3 class="text-center" style="color:rgb(71, 44, 172);font:bold">On going Projects</h3>
+    <div class="row mt-5" id="tablecontainer">  
+        <div class="col-12 table-responsive">
+            
+            <table class="table">
+                <tbody>
+                    <thead>
+                        <tr style="color:rgb(96, 180, 219)">
+                            <td><h4>Project Name</h4></td>
+                            <td><h4>Client Name</h4></td>
+                        </tr>
+                    </thead>
+                    {% for project in ongoing_project %}
+                    <tr>
+                        <td class="text-left"><h6>{{ project.name }}</h6></td>
+                        <td ><h6>{{ project.client }}</h6></td>
+
+                        <td class="text-center">
+                            <a href="{% url 'projectdetailview' project.id %}" type="button" class="mx-2 btn btn-info">VIEW</a>
+                        </td>
+                        <td class="text-center">
+                            <form method="POST" action="{% url 'projectdelete' project.id %}">
+                                {% csrf_token %}
+                             
+                                <button type="submit" class="mx-2 btn btn-danger">DELETE</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

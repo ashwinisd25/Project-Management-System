@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% if tasks %}
+    {% for task in tasks %}
+    <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="card" style="width: 22rem;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5 class="card-title">Name: {{task.name}}</h5>                
+                </div>
+                <div class="col">
+                    <p>Client : {{ task.project.client}}</p>
+                </div>
+
+            </div>
+          <p class="card-text"><h6>Description : </h6>{{ task.description }}</p>
+          <div class="row">
+            <div class="col">
+                <p>Status : {{task.status}}</p>
+            </div>
+            <div class="col align-self-end">
+                <a href="{% url 'edittask' task.pk %}" class="btn btn-primary">EDIT</a>
+                <a href="{% url 'deletetask' task.pk %}" class="btn btn-danger">DELETE</a>
+
+                
+            </div>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+        <h3 style="margin-left:45px">No tasks available for now.</h3>
+    {% endif %}
+</div>
+<div class="row ">
+     
+    <div class="col-xs-1 text-center">
+        <a href="{% url 'createtask' project_id %}"><h2 class="text-center mt-4 mb-2">Add Task</h2></a>
+    </div>
+</div>
+</div>
+{% endblock %}
