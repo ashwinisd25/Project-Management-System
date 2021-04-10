@@ -17,11 +17,11 @@ A Simple Project Management System developedusing Python and Django.
 
 The dependencies for the project are listed in requirements.txt 
 
-### Home page
-### All Projects List
-### Ongoing Projects List
-### Create Project
-### View Project
-### Create Task
-### Task list for a project  
-### Edit Task
+#### Home page
+#### All Projects List
+#### Ongoing Projects List
+#### Create Project
+#### View Project
+#### Create Task
+#### Task list for a project  
+#### Edit Task
