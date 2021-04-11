@@ -13,9 +13,11 @@
             <div class="col-sm-4">
                 {{ field }}
                 <br>
-                <div class="invalid-feedback">
-                    {{ field.errors }}
-                </div>
+                {% if field.errors %}{% for error in field.errors %}
+                        <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}{% endif %}
             </div>
         </div>
         {% endfor %}

@@ -9,9 +9,10 @@ from django.views.generic.edit import DeleteView,UpdateView
 # update project status automatically when new task created or edited.
 def ProjectStatus(project_id):
     project= Project.objects.get(pk=project_id)
-    task = Task.objects.filter(project_id=project_id)  
+    task = Task.objects.filter(project_id=project_id)
     for i in task:
         if i.status !="done":
+            project.end_date = None
             project.project_status = False
         else :
             project.end_date = datetime.now()
@@ -59,7 +60,6 @@ def ProjectDeleteView(request, project_id):
             project.delete()
         except:
             return redirect('projectlist')
-
     return redirect('projectlist')
 
 def ProjectDetail(request, project_id):
@@ -69,27 +69,24 @@ def ProjectDetail(request, project_id):
             'project':project,
             'task':task
         }
-    
+
     if request.method == 'POST':
-        try:
-            form = TaskForm(request.POST)
-            if form.is_valid():
-                newtask = Task()
-                name= form.cleaned_data['name']
-                description= form.cleaned_data["description"]
-                project=Project.objects.get(pk=project_id)
-                status= form.cleaned_data['status']
-                newtask=Task(name=name ,description= description, project=project,status=status)
-                newtask.save()
-                p = ProjectStatus(project_id) 
-                p.save()
-                return redirect("projectdetailview", project_id)
-        except ValueError:
-            return render(request, 'projects/create_task.html', {'form':TaskForm(), 'error':'Bad data passed in. Try again.'})
-    
-    
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            newtask = Task()
+            name= form.cleaned_data['name']
+            description= form.cleaned_data["description"]
+            project=Project.objects.get(pk=project_id)
+            status= form.cleaned_data['status']
+            newtask=Task(name=name ,description= description, project=project,status=status)
+            newtask.save()
+            p = ProjectStatus(project_id) 
+            p.save()
+            return redirect('projectdetailview', project_id)
+        else:
+            return render(request,"projects/create_task.html", {"form":form})
     return render(request, 'projects/projectdetail.html', context)
-    
+
 def CreateTask(request, project_id):
     template_name = 'projects/create_task.html'
     project= Project.objects.get(pk=project_id)
@@ -111,7 +108,10 @@ def TaskEdit(request,task_id):
             task_obj.save()
             p = ProjectStatus(task_obj.project_id)  
             p.save()         
-        return redirect('tasklist',task_obj.project.pk)
+            return redirect('tasklist',task_obj.project.pk)
+        else:
+            return render(request,"projects/taskedit.html", {"form":form})
+
 
     template_name = 'projects/taskedit.html'
     form = TaskForm(initial={'name': task_obj.name,'description': task_obj.description,'status':task_obj.status })

@@ -8,17 +8,18 @@
         <h2>Edit Your Task!</h2><hr>
         <form method="POST">
             {% csrf_token %}
-
             {% for field in form %}
-
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
                 <div class="col-sm-4">
                     {{ field }}
                     <br>
-                    <div class="invalid-feedback">
-                        {{ field.errors }}
+                    {% if field.errors %}{% for error in field.errors %}
+                        <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
                     </div>
+                      {% endfor %}
+            {% endif %}
                 </div>
             </div>
             {% endfor %}
@@ -31,17 +32,3 @@
 </div>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
