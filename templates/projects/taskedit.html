@@ -4,25 +4,27 @@
 <div class="container">
 
     <div style="text-align:center">
-        <div class="form-group">
-        <h2>Edit Your Task!</h2><hr>
+        <div class="form-group">  
+            <h2>Task : {{task_obj.name }}</h2>
+            <br><br>
+
+        <h3>Edit Status</h3><hr>
         <form method="POST">
             {% csrf_token %}
-            {% for field in form %}
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                <label class="col-sm-4 col-form-label" for="id_status">Status</label>
                 <div class="col-sm-4">
-                    {{ field }}
+                    <select name= "status" class="form-control" required id="id_status">
+                        <option selected>Open this select menu</option>
+                        <option value="todo">TODO</option>
+                        <option value="wip">WIP</option>
+                        <option value="on_hold">ON_HOLD</option>
+                        <option value="done">DONE</option>
+                      </select>
                     <br>
-                    {% if field.errors %}{% for error in field.errors %}
-                        <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                    </div>
-                      {% endfor %}
-            {% endif %}
                 </div>
             </div>
-            {% endfor %}
+           
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Update</button>
             </div>
@@ -30,5 +32,8 @@
 </div>
     </div>
 </div>
+
+
+   
 
 {% endblock %}

@@ -12,11 +12,12 @@ def ProjectStatus(project_id):
     task = Task.objects.filter(project_id=project_id)
     for i in task:
         if i.status !="done":
-            project.end_date = None
             project.project_status = False
         else :
-            project.end_date = datetime.now()
             project.project_status = True
+    if project.project_status == True:
+        project.end_date = datetime.now()
+    project.end_date = None
     return project
 
 def home(request):
@@ -62,6 +63,7 @@ def ProjectDeleteView(request, project_id):
             return redirect('projectlist')
     return redirect('projectlist')
 
+# task creation is handelled in this view in POST part.
 def ProjectDetail(request, project_id):
     task = Task.objects.filter(project=project_id)
     project = Project.objects.get(pk=project_id)
@@ -69,7 +71,6 @@ def ProjectDetail(request, project_id):
             'project':project,
             'task':task
         }
-
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -84,7 +85,7 @@ def ProjectDetail(request, project_id):
             p.save()
             return redirect('projectdetailview', project_id)
         else:
-            return render(request,"projects/create_task.html", {"form":form})
+            return render(request,"projects/create_task.html", {"form":form,"project":project })
     return render(request, 'projects/projectdetail.html', context)
 
 def CreateTask(request, project_id):
@@ -97,22 +98,19 @@ def TaskList(request,project_id):
     tasks = Task.objects.filter(project=project_id)
     return render(request, 'projects/tasklist.html', {'tasks':tasks, "project_id" : project_id})
     
+#  Task status can be edited.
+#  the existing task object is saved in variable and updated with new status.
 def TaskEdit(request,task_id):
     task_obj = Task.objects.get(pk=task_id)
     if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            task_obj.name=form.cleaned_data.get('name')
-            task_obj.description = form.cleaned_data.get('description')
-            task_obj.status = form.cleaned_data.get('status')
+        if request.POST.get("status"):
+            task_obj.status = request.POST.get("status")
             task_obj.save()
-            p = ProjectStatus(task_obj.project_id)  
+            p = ProjectStatus(task_obj.project_id)
             p.save()         
             return redirect('tasklist',task_obj.project.pk)
         else:
             return render(request,"projects/taskedit.html", {"form":form})
-
-
     template_name = 'projects/taskedit.html'
     form = TaskForm(initial={'name': task_obj.name,'description': task_obj.description,'status':task_obj.status })
     context = {'form': form, 'task_obj': task_obj}

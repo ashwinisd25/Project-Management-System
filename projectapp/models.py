@@ -31,7 +31,7 @@ class Project(models.Model):
 
 
 class Task(models.Model):
-    name = models.CharField(max_length = 120)
+    name = models.CharField(max_length = 120, unique= True)
     description = models.TextField()
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
     status = models.CharField(max_length = 20, choices = STATUS_CHOICES)

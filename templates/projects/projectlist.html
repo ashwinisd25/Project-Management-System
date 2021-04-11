@@ -24,8 +24,8 @@
                     <tr>
                         <td class="text-left"><h6>{{ project.name }}</h6></td>
                         <td ><h6>{{ project.client }}</h6></td>
-                        
-                        <td >   {% if project.end_date %}<p>Completed</p>
+
+                        <td >   {% if project.project_status == True %}<p>Completed</p>
                             {% else %}<p>Ongoing</p>{% endif %}</td>
 
                         <td class="text-center">
