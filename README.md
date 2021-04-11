@@ -23,7 +23,7 @@ The dependencies for the project are listed in requirements.txt
 
 #### All Projects List
 
-![](Img/home.png)
+![](Img/all_project.png)
 
 #### Ongoing Projects List
 
