@@ -18,10 +18,34 @@ A Simple Project Management System developedusing Python and Django.
 The dependencies for the project are listed in requirements.txt 
 
 #### Home page
+
+![](Img/home.png)
+
 #### All Projects List
+
+![](Img/home.png)
+
 #### Ongoing Projects List
+
+![](Img/Ongoing_projects.png)
+
 #### Create Project
+
+![](Img/create_project.png)
+
 #### View Project
+
+![](Img/project_detail.png)
+
 #### Create Task
+
+![](Img/create_task.png)
+
 #### Task list for a project  
+
+![](Img/task_list.png)
+
 #### Edit Task
+
+![](Img/edit_task.png)
+
