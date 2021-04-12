@@ -4,7 +4,6 @@ from .forms import ProjectForm, TaskForm
 from .models import Project, Task,Client
 from django.urls import reverse_lazy
 from datetime import datetime
-from django.views.generic.edit import DeleteView,UpdateView
 
 # update project status automatically when new task created or edited.
 def ProjectStatus(project_id):
