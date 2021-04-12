@@ -9,18 +9,24 @@ from django.views.generic.edit import DeleteView,UpdateView
 # update project status automatically when new task created or edited.
 def ProjectStatus(project_id):
     project= Project.objects.get(pk=project_id)
-    task = Task.objects.filter(project_id=project_id)
-    for i in task:
+    for i in project.task_set.all():
         if i.status !="done":
             project.project_status = False
-        else :
-            project.project_status = True
+            break
+        project.project_status = True
     if project.project_status == True:
         project.end_date = datetime.now()
     project.end_date = None
     return project
 
 def home(request):
+    project= Project.objects.all()
+    for i in project:
+        for y in i.task_set.all():
+            print(y.status) 
+        print(i.task_set.all())
+    
+
     return render(request, 'projects/home.html')
 
 def client(request):
@@ -118,6 +124,8 @@ def TaskEdit(request,task_id):
 
 def TaskDelete(request,task_id):
     task = Task.objects.get(pk=task_id)
+    p = ProjectStatus(task.project_id)
+    p.save()
     task.delete()
     return redirect(request.META['HTTP_REFERER'])
     

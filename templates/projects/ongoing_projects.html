@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container">
+    {% if ongoing_project %}
     <h3 class="text-center" style="color:rgb(71, 44, 172);font:bold">On going Projects</h3>
     <div class="row mt-5" id="tablecontainer">  
         <div class="col-12 table-responsive">
@@ -35,5 +36,13 @@
             </table>
         </div>
     </div>
+    {% else %}
+        <div><h3 class="text-center">No OnGoing Projects Currently!</h3></div>
+        {% endif %}
+        <div class="row">
+            <div class="col-12">
+                <a href="{% url 'createproject'%}"><h2 class="text-center mt-4 mb-2">Add New Project Here!</h2></a>
+            </div>
+        </div>
 </div>
 {% endblock %}

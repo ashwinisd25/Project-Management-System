@@ -9,7 +9,8 @@
         </div>
     </div>
 
-    <div class="row mt-5" id="tablecontainer">
+    <div class="row mt-5" id="tablecontainer"> 
+        {% if project_list %}
         <div class="col-12 table-responsive">
             <table class="table">
                 <tbody>
@@ -44,6 +45,10 @@
                 </tbody>
             </table>
         </div>
+        {% else %}
+        <div><h3 class="text-center">No Projects!</h3></div>
+        {% endif %}
+        
     </div>
 </div>
 {% endblock %}
