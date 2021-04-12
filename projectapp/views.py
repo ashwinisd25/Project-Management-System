@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, View, ListView, DetailView
+from django.views.generic import CreateView, ListView
 from .forms import ProjectForm, TaskForm
 from .models import Project, Task,Client
 from django.urls import reverse_lazy
